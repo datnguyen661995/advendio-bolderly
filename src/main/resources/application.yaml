@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: "/bolderly"
+app:
+  swagger:
+    host-name:
+  bolderly:
+    ignoringMatchers: /swagger-ui/**, /swagger-resources/**, /actuator/health
+    jwt:
+      aws:
+        userPoolId: ${JWT_USER_POOL_ID:us-east-1_uIGGYZMeB}
+        identityPoolId: ${JWT_IDENTITY_POOL_ID:us-east-1}
+        jwkUrl: ${JWT_URL:}
+        region: ${JWT_REGION:us-east-1}
+        userNameField: ${JWT_USER_NAME_FIELD:cognito:username}
+        connectionTimeout: ${JWT_CONNECTION_TIME_OUT:2000}
+        readTimeout: ${JWT_READ_TIME_OUT:2000}
+        httpHeader: ${JWT_HTTP_HEADER:Authorization}
