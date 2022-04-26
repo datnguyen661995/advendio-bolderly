@@ -8,13 +8,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] WHITE_LIST = {"/actuator/**", "/", "/v2/api-docs/**"};
-    private AwsCognitoJwtAuthFilter awsCognitoJwtAuthFilter;
+    private final AwsCognitoJwtAuthFilter awsCognitoJwtAuthFilter;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
