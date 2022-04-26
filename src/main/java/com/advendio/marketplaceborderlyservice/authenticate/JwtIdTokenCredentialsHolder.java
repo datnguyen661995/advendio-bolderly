@@ -1,4 +1,4 @@
-package com.advendio.marketplaceborderlyservice.security;
+package com.advendio.marketplaceborderlyservice.authenticate;
 
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.advendio.marketplaceborderlyservice.security;
+package com.advendio.marketplaceborderlyservice.authenticate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @ConfigurationProperties(prefix = "app.bolderly.jwt.aws")
 public class JwtConfiguration {
-
     private String userPoolId;
     private String identityPoolId;
     private String jwkUrl;
@@ -21,6 +20,8 @@ public class JwtConfiguration {
     private int connectionTimeout;
     private int readTimeout;
     private String httpHeader;
+    private String tokenUse;
+    private String clientId;
 
     public String getCognitoIdentityPoolUrl() {
         return String.format("https://cognito-idp.%s.amazonaws.com/%s", this.region, this.userPoolId);

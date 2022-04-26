@@ -1,4 +1,4 @@
-package com.advendio.marketplaceborderlyservice.security;
+package com.advendio.marketplaceborderlyservice.authenticate;
 
 import com.nimbusds.jwt.JWTClaimsSet;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

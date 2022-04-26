@@ -6,7 +6,7 @@ app:
   swagger:
     host-name:
   bolderly:
-    ignoringMatchers: /swagger-ui/**, /swagger-resources/**, /actuator/health
+    ignoringMatchers: /swagger-ui/**, /swagger-resources/**, /actuator/health, /v2/api-docs/**
     jwt:
       aws:
         userPoolId: ${JWT_USER_POOL_ID:us-east-1_uIGGYZMeB}
@@ -17,3 +17,8 @@ app:
         connectionTimeout: ${JWT_CONNECTION_TIME_OUT:2000}
         readTimeout: ${JWT_READ_TIME_OUT:2000}
         httpHeader: ${JWT_HTTP_HEADER:Authorization}
+        clientId: ${JWT_CLIENT_ID:54r8juol3rr4pregbcfhr3i9ub}
+        tokenuse: ${JWT_TOKEN_USE:access}
+spring:
+  main:
+    allow-bean-definition-overriding: true

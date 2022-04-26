@@ -1,49 +1,58 @@
-package com.advendio.marketplaceborderlyservice.security;
+package com.advendio.marketplaceborderlyservice.authenticate;
 
-import com.advendio.marketplaceborderlyservice.exception.CustomException;
+import com.advendio.marketplaceborderlyservice.exception.CognitoException;
 import com.advendio.marketplaceborderlyservice.properties.BolderlyProperties;
-import lombok.AllArgsConstructor;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.proc.BadJOSEException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 
 @Component
 @Slf4j
 public class AwsCognitoJwtAuthFilter extends OncePerRequestFilter {
-    private final AwsCognitoIdTokenProcessor awsCognitoIdTokenProcessor;
-    private final BolderlyProperties bolderlyProperties;
+    @Autowired
+    private AwsCognitoIdTokenProcessor awsCognitoIdTokenProcessor;
 
-    public AwsCognitoJwtAuthFilter(AwsCognitoIdTokenProcessor awsCognitoIdTokenProcessor, BolderlyProperties bolderlyProperties) {
-        this.awsCognitoIdTokenProcessor = awsCognitoIdTokenProcessor;
-        this.bolderlyProperties = bolderlyProperties;
-    }
+    @Autowired
+    private BolderlyProperties bolderlyProperties;
+
+    @Autowired
+    @Qualifier("handlerExceptionResolver")
+    private HandlerExceptionResolver resolver;
+//
+//    public AwsCognitoJwtAuthFilter(AwsCognitoIdTokenProcessor awsCognitoIdTokenProcessor, BolderlyProperties bolderlyProperties) {
+//        this.awsCognitoIdTokenProcessor = awsCognitoIdTokenProcessor;
+//        this.bolderlyProperties = bolderlyProperties;
+//    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         Authentication authentication;
         try {
             authentication = this.awsCognitoIdTokenProcessor.authenticate((HttpServletRequest) request);
-            if (authentication != null) {
+            if (null != authentication) {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 doFilter(request, response, filterChain);
-                return;
             }
-        } catch (Exception e) {
-            log.error("[Bolderly] Cognito Id Token processing error, {}", e.getMessage());
-            SecurityContextHolder.clearContext();
+        } catch (ParseException | BadJOSEException | JOSEException e) {
+            log.error("[Bolderly] Cognito Id Token processing error");
+            resolver.resolveException(request, response, null, new CognitoException(HttpStatus.UNAUTHORIZED, CognitoException.INVALID_TOKEN));
         }
-        throw new CustomException(HttpStatus.UNAUTHORIZED, "Invalid Token");
-
     }
 
     @Override
