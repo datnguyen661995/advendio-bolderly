@@ -44,7 +44,7 @@ public class AwsCognitoJwtAuthFilter extends OncePerRequestFilter {
             }
         } catch (Exception e) {
             log.error("[Bolderly] Cognito Id Token processing error, {}", e.getMessage());
-            resolver.resolveException(request, response, null, new CognitoException(HttpStatus.UNAUTHORIZED.name(),e.getMessage()));
+            resolver.resolveException(request, response, null, new CognitoException(HttpStatus.UNAUTHORIZED,e.getMessage()));
         }
     }
 

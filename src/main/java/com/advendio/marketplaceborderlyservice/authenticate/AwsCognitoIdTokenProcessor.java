@@ -29,8 +29,7 @@ public class AwsCognitoIdTokenProcessor {
     public Authentication authenticate(HttpServletRequest request) throws BadJOSEException, ParseException, JOSEException {
         String idToken = request.getHeader(this.jwtProperties.getHttpHeader());
         if (null == idToken) {
-            throw new CognitoException(HttpStatus.UNAUTHORIZED,
-                    CognitoException.NO_TOKEN_PROVIDED_EXCEPTION);
+            throw new CognitoException(HttpStatus.UNAUTHORIZED, CognitoException.NO_TOKEN_PROVIDED_EXCEPTION);
         }
         JWTClaimsSet claims = null;
         claims = this.configurableJWTProcessor.process(this.getBearerToken(idToken), null);
