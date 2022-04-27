@@ -4,21 +4,24 @@ import com.advendio.marketplaceborderlyservice.client.AuthClient;
 import com.advendio.marketplaceborderlyservice.model.dto.TokenDto;
 import com.advendio.marketplaceborderlyservice.model.request.ClientRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BolderServiceImpl implements BolderService {
-    private final AuthClient authClient;
+    @Autowired
+    private AuthClient authClient;
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper mapper;
 
-    public BolderServiceImpl(AuthClient authClient) {
-        this.authClient = authClient;
-    }
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public TokenDto getToken(ClientRequest clientRequest) {
-        return mapper.convertValue(authClient.getToken(clientRequest).getBody(), TokenDto.class);
+        return authClient.getToken(clientRequest);
     }
 
 }

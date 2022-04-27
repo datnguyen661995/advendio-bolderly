@@ -1,12 +1,9 @@
 package com.advendio.marketplaceborderlyservice.authenticate;
 
 import com.advendio.marketplaceborderlyservice.exception.CognitoException;
-import com.advendio.marketplaceborderlyservice.exception.CustomException;
 import com.advendio.marketplaceborderlyservice.properties.BolderlyProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.jose.JOSEException;
-import com.nimbusds.jose.proc.BadJOSEException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,7 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
 
 @Component
 @AllArgsConstructor

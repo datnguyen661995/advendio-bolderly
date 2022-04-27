@@ -24,10 +24,7 @@ import java.net.URL;
 import static com.nimbusds.jose.JWSAlgorithm.RS256;
 
 @Configuration
-//@AllArgsConstructor
 public class JWTProcessor {
-//    private final JwtConfiguration jwtConfiguration;
-
     @Autowired
     private JwtProperties jwtProperties;
 

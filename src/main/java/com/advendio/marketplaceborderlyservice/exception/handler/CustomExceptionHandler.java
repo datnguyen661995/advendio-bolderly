@@ -14,22 +14,4 @@ public class CustomExceptionHandler {
         log.error("[Bolderly] Exception: {}", e.getMessage());
         return new ResponseEntity<Object>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
-
-//    @ExceptionHandler(ParseException.class)
-//    public final ResponseEntity<Object> handleParseException(ParseException e) {
-//        log.error("[Bolderly] Exception: {}", e.getMessage());
-//        return new ResponseEntity<Object>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-//    }
-//
-//    @ExceptionHandler(BadJOSEException.class)
-//    public final ResponseEntity<Object> handleBadJOSEException(Exception e) {
-//        log.error("[Bolderly] Exception: {}", e.getMessage());
-//        return new ResponseEntity<Object>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-//    }
-//
-//    @ExceptionHandler(JOSEException.class)
-//    public final ResponseEntity<Object> handleJOSEException(Exception e) {
-//        log.error("[Bolderly] Exception: {}", e.getMessage());
-//        return new ResponseEntity<Object>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-//    }
 }
