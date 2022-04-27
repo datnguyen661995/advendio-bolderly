@@ -1,25 +1,31 @@
 package com.advendio.marketplaceborderlyservice.controller;
 
+import com.advendio.marketplaceborderlyservice.model.dto.TokenDto;
 import com.advendio.marketplaceborderlyservice.model.request.ClientRequest;
 import com.advendio.marketplaceborderlyservice.service.BolderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Api(tags = "Bolderly")
 @Slf4j
 public class BolderlyController {
-    @Autowired
-    private BolderService bolderService;
+    private final BolderService bolderService;
+
+    public BolderlyController(BolderService bolderService) {
+        this.bolderService = bolderService;
+    }
 
     @GetMapping
     @ApiImplicitParams({
-            @ApiImplicitParam(name="Authorization", value = "Authorization", example = "Bearer <access_token>", paramType = "header", required = true)
+            @ApiImplicitParam(name = "Authorization", value = "Authorization", example = "Bearer <access_token>", paramType = "header", required = true)
     })
     public ResponseEntity<?> getData() {
         return ResponseEntity.ok("GET DATA");
@@ -27,14 +33,14 @@ public class BolderlyController {
 
     @PostMapping
     @ApiImplicitParams({
-            @ApiImplicitParam(name="Authorization", value = "Authorization", example = "Bearer <access_token>", paramType = "header", required = true)
+            @ApiImplicitParam(name = "Authorization", value = "Authorization", example = "Bearer <access_token>", paramType = "header", required = true)
     })
     public ResponseEntity<?> createData() {
         return ResponseEntity.ok("CREATE DATA");
     }
 
     @PostMapping(value = "/oauth/token")
-    public ResponseEntity<?> getToken(@RequestBody ClientRequest clientRequest) {
+    public ResponseEntity<TokenDto> getToken(@RequestBody ClientRequest clientRequest) {
         return ResponseEntity.ok(bolderService.getToken(clientRequest));
     }
 

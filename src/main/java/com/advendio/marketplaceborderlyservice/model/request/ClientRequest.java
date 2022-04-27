@@ -6,7 +6,8 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class ClientRequest {
-    private String clientId;
-    private String clientSecret;
-    private String grantType;
+    private String grant_type;
+    private String client_id;
+    private String client_secret;
+    private String scope;
 }

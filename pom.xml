@@ -34,6 +34,7 @@
         <aws-java-sdk-core.version>1.11.360</aws-java-sdk-core.version>
         <aws-java-sdk-cognitoidp.version>1.11.360</aws-java-sdk-cognitoidp.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <feign-form.version>3.8.0</feign-form.version>
     </properties>
 
     <dependencies>
@@ -132,6 +133,11 @@
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign.form</groupId>
+            <artifactId>feign-form</artifactId>
+            <version>${feign-form.version}</version>
         </dependency>
     </dependencies>
     <dependencyManagement>

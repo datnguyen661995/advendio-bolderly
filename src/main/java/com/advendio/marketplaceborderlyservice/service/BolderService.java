@@ -7,5 +7,5 @@ import com.advendio.marketplaceborderlyservice.model.request.ClientRequest;
 import java.util.Map;
 
 public interface BolderService {
-    Map<String, Object> getToken(ClientRequest clientRequest);
+    TokenDto getToken(ClientRequest clientRequest);
 }
