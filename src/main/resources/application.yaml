@@ -6,7 +6,7 @@ app:
   swagger:
     host-name:
   bolderly:
-    ignoringMatchers: /swagger-ui/**, /swagger-resources/**, /actuator/health, /v2/api-docs/**, /oauth/token
+    ignoringMatchers: /swagger-ui/**, /swagger-resources/**, /actuator/health, /v2/api-docs/**, /oauth/token, /genKey, /encryptAndDecryptText/**
     jwt:
       aws:
 #        userPoolId: ${JWT_USER_POOL_ID:ap-southeast-1}
@@ -27,6 +27,9 @@ app:
         readTimeout: ${JWT_READ_TIME_OUT:2000}
         httpHeader: ${JWT_HTTP_HEADER:Authorization}
         tokenuse: ${JWT_TOKEN_USE:access}
+    key:
+      publicKey: publicKey.txt
+      privateKey: privateKey.txt
 spring:
   main:
     allow-bean-definition-overriding: true

@@ -8,10 +8,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 @RestController
 @Api(tags = "Bolderly")
@@ -44,4 +44,13 @@ public class BolderlyController {
         return ResponseEntity.ok(bolderService.getToken(clientRequest));
     }
 
+    @GetMapping(value = "/genKey")
+    public void generateKey() throws NoSuchAlgorithmException, NoSuchProviderException {
+        bolderService.genKey();
+    }
+
+    @GetMapping(value = "/encryptAndDecryptText/{text}")
+    public void encryptFile(@PathVariable(name = "text") String text) throws Exception {
+        bolderService.encryptAndDecryptText(text);
+    }
 }
