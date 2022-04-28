@@ -2,6 +2,7 @@ package com.advendio.marketplaceborderlyservice.controller;
 
 import com.advendio.marketplaceborderlyservice.model.dto.TokenDto;
 import com.advendio.marketplaceborderlyservice.model.request.ClientRequest;
+import com.advendio.marketplaceborderlyservice.model.response.EncryptedData;
 import com.advendio.marketplaceborderlyservice.service.BolderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -40,13 +41,19 @@ public class BolderlyController {
     }
 
     @PostMapping(value = "/oauth/token")
-    public ResponseEntity<TokenDto> getToken(@RequestBody ClientRequest clientRequest) {
-        return ResponseEntity.ok(bolderService.getToken(clientRequest));
+    public ResponseEntity<TokenDto> getToken(@RequestBody EncryptedData encryptedData) throws Exception {
+        return ResponseEntity.ok(bolderService.getToken(encryptedData));
     }
 
     @GetMapping(value = "/genKey")
     public void generateKey() throws NoSuchAlgorithmException, NoSuchProviderException {
         bolderService.genKey();
+    }
+
+    @PostMapping(value = "/encryptData")
+    public ResponseEntity<EncryptedData> encryptData(@RequestBody ClientRequest clientRequest) throws Exception {
+
+        return ResponseEntity.ok(bolderService.encryptData(clientRequest));
     }
 
     @GetMapping(value = "/encryptAndDecryptText/{text}")

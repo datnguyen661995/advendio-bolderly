@@ -9,24 +9,24 @@ app:
     ignoringMatchers: /swagger-ui/**, /swagger-resources/**, /actuator/health, /v2/api-docs/**, /oauth/token, /genKey, /encryptAndDecryptText/**, /encryptData
     jwt:
       aws:
-#        userPoolId: ${JWT_USER_POOL_ID:ap-southeast-1}
-#        identityPoolId: ${JWT_IDENTITY_POOL_ID:us-east-1}
-#        jwkUrl: ${JWT_URL:}
-#        region: ${JWT_REGION:ap-southeast-1}
-#        userNameField: ${JWT_USER_NAME_FIELD:cognito:username}
-#        connectionTimeout: ${JWT_CONNECTION_TIME_OUT:2000}
-#        readTimeout: ${JWT_READ_TIME_OUT:2000}
-#        httpHeader: ${JWT_HTTP_HEADER:Authorization}
-#        tokenuse: ${JWT_TOKEN_USE:access}
-        userPoolId: ${JWT_USER_POOL_ID:us-east-1}
+        userPoolId: ${JWT_USER_POOL_ID:ap-southeast-1}
         identityPoolId: ${JWT_IDENTITY_POOL_ID:us-east-1}
         jwkUrl: ${JWT_URL:}
-        region: ${JWT_REGION:us-east-1}
+        region: ${JWT_REGION:ap-southeast-1}
         userNameField: ${JWT_USER_NAME_FIELD:cognito:username}
         connectionTimeout: ${JWT_CONNECTION_TIME_OUT:2000}
         readTimeout: ${JWT_READ_TIME_OUT:2000}
         httpHeader: ${JWT_HTTP_HEADER:Authorization}
         tokenuse: ${JWT_TOKEN_USE:access}
+#        userPoolId: ${JWT_USER_POOL_ID:us-east-1}
+#        identityPoolId: ${JWT_IDENTITY_POOL_ID:us-east-1}
+#        jwkUrl: ${JWT_URL:}
+#        region: ${JWT_REGION:us-east-1}
+#        userNameField: ${JWT_USER_NAME_FIELD:cognito:username}
+#        connectionTimeout: ${JWT_CONNECTION_TIME_OUT:2000}
+#        readTimeout: ${JWT_READ_TIME_OUT:2000}
+#        httpHeader: ${JWT_HTTP_HEADER:Authorization}
+#        tokenuse: ${JWT_TOKEN_USE:access}
     key:
       publicKey: publicKey.txt
       privateKey: privateKey.txt
@@ -37,5 +37,5 @@ spring:
     oauth2:
       client:
         provider:
-#          token-uri: https://bolderly.auth.ap-southeast-1.amazoncognito.com/oauth2/token
-          token-uri: https://bolderly-oauth-dev.auth.us-east-1.amazoncognito.com/oauth2/token
+          token-uri: https://bolderly.auth.ap-southeast-1.amazoncognito.com/oauth2/token
+#          token-uri: https://bolderly-oauth-dev.auth.us-east-1.amazoncognito.com/oauth2/token

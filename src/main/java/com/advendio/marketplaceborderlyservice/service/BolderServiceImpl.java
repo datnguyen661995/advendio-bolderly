@@ -3,12 +3,12 @@ package com.advendio.marketplaceborderlyservice.service;
 import com.advendio.marketplaceborderlyservice.client.AuthClient;
 import com.advendio.marketplaceborderlyservice.model.dto.TokenDto;
 import com.advendio.marketplaceborderlyservice.model.request.ClientRequest;
+import com.advendio.marketplaceborderlyservice.model.response.EncryptedData;
 import com.advendio.marketplaceborderlyservice.properties.KeyProperties;
 import com.advendio.marketplaceborderlyservice.utils.AsymmetricCryptography;
 import com.advendio.marketplaceborderlyservice.utils.GenerateKeys;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -20,24 +20,30 @@ import java.security.PublicKey;
 
 @Service
 public class BolderServiceImpl implements BolderService {
-    @Autowired
-    private AuthClient authClient;
+    private final AuthClient authClient;
 
-    @Autowired
-    private ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private AsymmetricCryptography ac;
+    private final AsymmetricCryptography ac;
 
-    @Autowired
-    private KeyProperties keyProperties;
+    private final KeyProperties keyProperties;
+
+    public BolderServiceImpl(AuthClient authClient, ObjectMapper mapper, ModelMapper modelMapper, AsymmetricCryptography ac, KeyProperties keyProperties) {
+        this.authClient = authClient;
+        this.mapper = mapper;
+        this.modelMapper = modelMapper;
+        this.ac = ac;
+        this.keyProperties = keyProperties;
+    }
 
 
     @Override
-    public TokenDto getToken(ClientRequest clientRequest) {
+    public TokenDto getToken(EncryptedData encryptedData) throws Exception {
+        PublicKey publicKey = ac.getPublic(keyProperties.getPublicKey());
+        String decryptedMsg = ac.decryptText(encryptedData.getData(), publicKey);
+        ClientRequest clientRequest = mapper.readValue(decryptedMsg, ClientRequest.class);
         return authClient.getToken(clientRequest);
     }
 
@@ -66,11 +72,17 @@ public class BolderServiceImpl implements BolderService {
 
         if (new File("KeyPair/text.txt").exists()) {
             ac.encryptFile(ac.getFileInBytes(new File("KeyPair/text.txt")),
-                    new File("KeyPair/text_encrypted.txt"),privateKey);
+                    new File("KeyPair/text_encrypted.txt"), privateKey);
             ac.decryptFile(ac.getFileInBytes(new File("KeyPair/text_encrypted.txt")),
                     new File("KeyPair/text_decrypted.txt"), publicKey);
         } else {
             System.out.println("Create a file text.txt under folder KeyPair");
         }
+    }
+
+    @Override
+    public EncryptedData encryptData(ClientRequest clientRequest) throws Exception {
+        PrivateKey privateKey = ac.getPrivate(keyProperties.getPrivateKey());
+        return new EncryptedData(ac.encryptText(mapper.writeValueAsString(clientRequest), privateKey));
     }
 }
