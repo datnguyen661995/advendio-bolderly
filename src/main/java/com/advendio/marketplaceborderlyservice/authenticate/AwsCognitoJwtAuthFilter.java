@@ -62,29 +62,3 @@ public class AwsCognitoJwtAuthFilter extends OncePerRequestFilter {
         return mapper.writeValueAsString(object);
     }
 }
-
-
-//@Component
-//@Slf4j
-//public class AwsCognitoJwtAuthFilter extends GenericFilter {
-//    private AwsCognitoIdTokenProcessor awsCognitoIdTokenProcessor;
-//
-//    public AwsCognitoJwtAuthFilter(AwsCognitoIdTokenProcessor awsCognitoIdTokenProcessor) {
-//        this.awsCognitoIdTokenProcessor = awsCognitoIdTokenProcessor;
-//    }
-//
-//    @Override
-//    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-//        Authentication authentication;
-//        try {
-//            authentication = this.awsCognitoIdTokenProcessor.authenticate((HttpServletRequest) request);
-//            if (null != authentication) {
-//                SecurityContextHolder.getContext().setAuthentication(authentication);
-//            }
-//        } catch (Exception e) {
-//            log.error("[Bolderly] Cognito Id Token processing error, {}", e);
-//            SecurityContextHolder.clearContext();
-//        }
-//        filterChain.doFilter(request,response);
-//    }
-//}
