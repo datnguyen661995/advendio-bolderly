@@ -47,10 +47,11 @@ public class AwsCognitoIdTokenProcessor {
             throw new CognitoException(HttpStatus.UNAUTHORIZED,
                     CognitoException.NOT_TOKEN_USE_EXCEPTION);
         }
-        if (!claims.getClaim(CLIENT_ID).equals(jwtProperties.getClientId())) {
-            throw new CognitoException(HttpStatus.UNAUTHORIZED,
-                    CognitoException.NOT_CLIENT_ID_EXCEPTION);
-        }
+        // TODO: Check client ID in pool later
+//        if (!claims.getClaim(CLIENT_ID).equals(jwtProperties.getClientId())) {
+//            throw new CognitoException(HttpStatus.UNAUTHORIZED,
+//                    CognitoException.NOT_CLIENT_ID_EXCEPTION);
+//        }
     }
 
     private void validateIssuer(JWTClaimsSet claims) {
