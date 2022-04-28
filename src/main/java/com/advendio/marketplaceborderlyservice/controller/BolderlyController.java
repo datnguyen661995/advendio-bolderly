@@ -55,9 +55,4 @@ public class BolderlyController {
 
         return ResponseEntity.ok(bolderService.encryptData(clientRequest));
     }
-
-    @GetMapping(value = "/encryptAndDecryptText/{text}")
-    public void encryptFile(@PathVariable(name = "text") String text) throws Exception {
-        bolderService.encryptAndDecryptText(text);
-    }
 }

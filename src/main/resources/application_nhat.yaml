@@ -10,7 +10,7 @@ app:
     jwt:
       aws:
         userPoolId: ${JWT_USER_POOL_ID:ap-southeast-1}
-        identityPoolId: ${JWT_IDENTITY_POOL_ID:us-east-1}
+        identityPoolId: ${JWT_IDENTITY_POOL_ID:ap-southeast-1}
         jwkUrl: ${JWT_URL:}
         region: ${JWT_REGION:ap-southeast-1}
         userNameField: ${JWT_USER_NAME_FIELD:cognito:username}

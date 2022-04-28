@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EncryptedData {
-    private String data;
+    private byte[] data;
+    private byte[] key;
 }
