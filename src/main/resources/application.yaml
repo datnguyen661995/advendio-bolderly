@@ -18,7 +18,7 @@ app:
 #        readTimeout: ${JWT_READ_TIME_OUT:2000}
 #        httpHeader: ${JWT_HTTP_HEADER:Authorization}
 #        tokenuse: ${JWT_TOKEN_USE:access}
-        userPoolId: ${JWT_USER_POOL_ID:us-east-1}
+        userPoolId: ${JWT_USER_POOL_ID:us-east-1_uIGGYZMeB}
         identityPoolId: ${JWT_IDENTITY_POOL_ID:us-east-1}
         jwkUrl: ${JWT_URL:}
         region: ${JWT_REGION:us-east-1}
