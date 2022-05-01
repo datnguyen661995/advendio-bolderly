@@ -1,6 +1,5 @@
 package com.advendio.marketplaceborderlyservice.client.config;
 
-import com.advendio.marketplaceborderlyservice.properties.JwtProperties;
 import feign.codec.Encoder;
 import feign.form.FormEncoder;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,6 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROT
 
 @AllArgsConstructor
 public class FormUrlConfig {
-    private final JwtProperties jwtProperties;
     private final ObjectFactory<HttpMessageConverters> messageConverters;
 
     @Bean
