@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.model.response;
 
 import lombok.AllArgsConstructor;

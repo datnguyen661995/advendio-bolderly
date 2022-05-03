@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.service;
 
 import com.advendio.marketplaceborderlyservice.client.AuthClient;
@@ -7,14 +8,13 @@ import com.advendio.marketplaceborderlyservice.model.response.EncryptedData;
 import com.advendio.marketplaceborderlyservice.utils.AsymmetricKey;
 import com.advendio.marketplaceborderlyservice.utils.GenerateKeys;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BolderServiceImpl implements BolderService {
@@ -32,11 +32,11 @@ public class BolderServiceImpl implements BolderService {
         this.ac = ac;
     }
 
-
     @Override
     public TokenDto getToken(EncryptedData encryptedData) throws Exception {
         PrivateKey privateKey = ac.getPrivate();
-        ClientRequest clientRequest = mapper.readValue(ac.decryptData(encryptedData, privateKey), ClientRequest.class);
+        ClientRequest clientRequest =
+                mapper.readValue(ac.decryptData(encryptedData, privateKey), ClientRequest.class);
         return authClient.getToken(clientRequest);
     }
 
@@ -54,7 +54,8 @@ public class BolderServiceImpl implements BolderService {
 
     @Override
     public EncryptedData encryptData(ClientRequest clientRequest) throws Exception {
-        byte[] encryptedData = ac.encyptData(mapper.writeValueAsString(clientRequest), ac.getSecretKey());
+        byte[] encryptedData =
+                ac.encyptData(mapper.writeValueAsString(clientRequest), ac.getSecretKey());
         byte[] encryptedKey = ac.encryptKey(ac.getPublic(), ac.getSecretKey());
         return new EncryptedData(encryptedData, encryptedKey);
     }

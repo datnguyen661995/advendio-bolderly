@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.utils;
 
 import com.advendio.marketplaceborderlyservice.enums.ErrorCode;
@@ -13,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 public class ResponseMessage {
 
     public static ResponseEntity<Object> responseError(CustomException customException) {
-        CustomErrorResponse customErrorResponse = new CustomErrorResponse(customException.getErrorCode(), customException.getMessage());
+        CustomErrorResponse customErrorResponse =
+                new CustomErrorResponse(
+                        customException.getErrorCode(), customException.getMessage());
         return new ResponseEntity<>(customErrorResponse, customException.getStatus());
     }
 
@@ -23,7 +26,8 @@ public class ResponseMessage {
     }
 
     public static ResponseEntity<Object> responseError() {
-        CustomErrorResponse customErrorResponse = new CustomErrorResponse(ErrorCode.ERROR_500_NAME.getMessage());
+        CustomErrorResponse customErrorResponse =
+                new CustomErrorResponse(ErrorCode.ERROR_500_NAME.getMessage());
         return new ResponseEntity<>(customErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

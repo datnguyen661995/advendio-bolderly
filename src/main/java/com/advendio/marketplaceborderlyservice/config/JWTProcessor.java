@@ -1,4 +1,7 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.config;
+
+import static com.nimbusds.jose.JWSAlgorithm.RS256;
 
 import com.advendio.marketplaceborderlyservice.authenticate.AwsCognitoIdTokenProcessor;
 import com.advendio.marketplaceborderlyservice.authenticate.AwsCognitoJwtAuthFilter;
@@ -12,37 +15,31 @@ import com.nimbusds.jose.util.DefaultResourceRetriever;
 import com.nimbusds.jose.util.ResourceRetriever;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import static com.nimbusds.jose.JWSAlgorithm.RS256;
-
 @Configuration
 public class JWTProcessor {
-    @Autowired
-    private JwtProperties jwtProperties;
+    @Autowired private JwtProperties jwtProperties;
 
     @Autowired
     @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver resolver;
 
-    @Autowired
-    private AwsCognitoIdTokenProcessor awsCognitoIdTokenProcessor;
+    @Autowired private AwsCognitoIdTokenProcessor awsCognitoIdTokenProcessor;
 
-    @Autowired
-    private BolderlyProperties bolderlyProperties;
+    @Autowired private BolderlyProperties bolderlyProperties;
 
     @Bean
     public ConfigurableJWTProcessor configurableJWTProcessor() throws MalformedURLException {
         ResourceRetriever resourceRetriever =
-                new DefaultResourceRetriever(jwtProperties.getConnectionTimeout(),
-                        jwtProperties.getReadTimeout());
+                new DefaultResourceRetriever(
+                        jwtProperties.getConnectionTimeout(), jwtProperties.getReadTimeout());
         URL jwkSetURL = new URL(jwtProperties.getJwkUrl());
         JWKSource keySource = new RemoteJWKSet(jwkSetURL, resourceRetriever);
         ConfigurableJWTProcessor jwtProcessor = new DefaultJWTProcessor();
@@ -53,6 +50,7 @@ public class JWTProcessor {
 
     @Bean
     public AwsCognitoJwtAuthFilter awsCognitoJwtAuthFilter() {
-        return new AwsCognitoJwtAuthFilter(awsCognitoIdTokenProcessor, bolderlyProperties, resolver);
+        return new AwsCognitoJwtAuthFilter(
+                awsCognitoIdTokenProcessor, bolderlyProperties, resolver);
     }
 }

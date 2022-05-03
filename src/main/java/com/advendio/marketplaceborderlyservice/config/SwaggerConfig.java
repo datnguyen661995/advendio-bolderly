@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.config;
 
 import org.apache.commons.lang3.StringUtils;
@@ -20,15 +21,21 @@ public class SwaggerConfig {
 
     @Bean
     public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("com.advendio.marketplaceborderlyservice.controller")).paths(PathSelectors.any()).build()
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(
+                        RequestHandlerSelectors.basePackage(
+                                "com.advendio.marketplaceborderlyservice.controller"))
+                .paths(PathSelectors.any())
+                .build()
                 .host(StringUtils.defaultIfBlank(swaggerHostName, null))
                 .apiInfo(metaData())
                 .useDefaultResponseMessages(false);
     }
 
     private ApiInfo metaData() {
-        return new ApiInfoBuilder().title("SWAGGER Bolderly")
+        return new ApiInfoBuilder()
+                .title("SWAGGER Bolderly")
                 .description("SWAGGER API Integrate with Sale-force")
                 .version("1.0")
                 .build();

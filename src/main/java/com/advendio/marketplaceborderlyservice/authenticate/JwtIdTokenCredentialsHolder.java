@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.authenticate;
 
 import org.springframework.stereotype.Component;
@@ -6,8 +7,7 @@ import org.springframework.stereotype.Component;
 public class JwtIdTokenCredentialsHolder {
     private String idToken;
 
-    public JwtIdTokenCredentialsHolder() {
-    }
+    public JwtIdTokenCredentialsHolder() {}
 
     public String getIdToken() {
         return this.idToken;

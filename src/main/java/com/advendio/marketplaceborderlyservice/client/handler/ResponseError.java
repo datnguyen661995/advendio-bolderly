@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.client.handler;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
