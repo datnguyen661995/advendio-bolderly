@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Data
 @AllArgsConstructor
@@ -21,7 +23,7 @@ public class JwtProperties {
     private int readTimeout;
     private String httpHeader;
     private String tokenUse;
-    private String clientId;
+    private List<String> clientId;
     private String clientSecret;
 
     public String getCognitoIdentityPoolUrl() {

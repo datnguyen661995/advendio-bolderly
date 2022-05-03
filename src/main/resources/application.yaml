@@ -27,6 +27,7 @@ app:
         readTimeout: ${JWT_READ_TIME_OUT:2000}
         httpHeader: ${JWT_HTTP_HEADER:Authorization}
         tokenuse: ${JWT_TOKEN_USE:access}
+        clientId: ${JWT_CLIENT_ID:54r8juol3rr4pregbcfhr3i9ub, 54XXXXXX}
     key:
       publicKey: publicKey.txt
       privateKey: privateKey.txt
