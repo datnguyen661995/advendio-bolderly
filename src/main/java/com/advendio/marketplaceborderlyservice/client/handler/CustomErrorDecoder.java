@@ -1,6 +1,6 @@
 package com.advendio.marketplaceborderlyservice.client.handler;
 
-import com.advendio.marketplaceborderlyservice.exception.CustomErrorMessage;
+import com.advendio.marketplaceborderlyservice.enums.ErrorCode;
 import com.advendio.marketplaceborderlyservice.exception.CustomException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
@@ -21,10 +21,10 @@ public class CustomErrorDecoder implements ErrorDecoder {
         try (Reader reader = response.body().asReader(StandardCharsets.UTF_8)) {
             responseError = new ObjectMapper().readValue(reader, ResponseError.class);
         } catch (Exception e) {
-            responseError = new ResponseError().setErrorMessage(CustomErrorMessage.ERROR_500_NAME);
-            log.error(CustomErrorMessage.ERROR_WHILE_PARSE_CLIENT_ERROR, e);
+            responseError = new ResponseError().setErrorMessage(ErrorCode.ERROR_500_NAME.getMessage());
+            log.error(ErrorCode.ERROR_WHILE_PARSE_CLIENT_ERROR.getMessage(), e);
         }
-        log.info(CustomErrorMessage.ERROR_WHILE_REQUEST_TO_ERROR, requestUrl, responseError.getMessage());
+        log.info(ErrorCode.ERROR_WHILE_REQUEST_TO_ERROR.getMessage(), requestUrl, responseError.getMessage());
         if (status.is5xxServerError()) {
             if (status.value() == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, responseError.getMessage());
@@ -35,6 +35,6 @@ public class CustomErrorDecoder implements ErrorDecoder {
             }
             throw new CustomException(HttpStatus.BAD_REQUEST, null != responseError.getMessage() ? responseError.getMessage() : responseError.getErrorMessage());
         }
-        throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, CustomErrorMessage.ERROR_500_NAME);
+        throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.ERROR_500_NAME.getMessage());
     }
 }

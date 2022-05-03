@@ -1,8 +1,7 @@
 package com.advendio.marketplaceborderlyservice.exception.handler;
 
-import com.advendio.marketplaceborderlyservice.client.handler.ResponseError;
+import com.advendio.marketplaceborderlyservice.enums.ErrorCode;
 import com.advendio.marketplaceborderlyservice.exception.CognitoException;
-import com.advendio.marketplaceborderlyservice.exception.CustomErrorMessage;
 import com.advendio.marketplaceborderlyservice.exception.CustomException;
 import com.advendio.marketplaceborderlyservice.model.response.ErrorResponse;
 import com.advendio.marketplaceborderlyservice.utils.Contants;
@@ -49,7 +48,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler(SocketTimeoutException.class)
     public  final ResponseEntity<Object> handleSocketTimeoutException(SocketTimeoutException e) {
         log.error("[Bolderly] SocketTimeoutException: {}", e.getMessage());
-        return ResponseMessage.responseError(new CustomException(HttpStatus.BAD_REQUEST, String.format(CustomErrorMessage.ERROR_API_TIME_OUT_NAME, e.getMessage())));
+        return ResponseMessage.responseError(new CustomException(HttpStatus.BAD_REQUEST, String.format(ErrorCode.ERROR_API_TIME_OUT_NAME.getMessage(), e.getMessage())));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
