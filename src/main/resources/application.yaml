@@ -39,3 +39,12 @@ spring:
         provider:
 #          token-uri: https://bolderly.auth.ap-southeast-1.amazoncognito.com/oauth2/token
           token-uri: https://bolderly-oauth-dev.auth.us-east-1.amazoncognito.com/oauth2/token
+# Config Pool Size - Max Pool Size - Max queueCapacity
+config:
+  threadpool:
+    corepool:
+      size: 10
+    maxpool:
+      size: 100
+    queueCapacity:
+      size: 500
