@@ -1,9 +1,9 @@
 package com.advendio.marketplaceborderlyservice.utils;
 
+import com.advendio.marketplaceborderlyservice.enums.ErrorCode;
 import com.advendio.marketplaceborderlyservice.exception.CognitoException;
-import com.advendio.marketplaceborderlyservice.exception.CustomErrorMessage;
-import com.advendio.marketplaceborderlyservice.model.response.CustomErrorResponse;
 import com.advendio.marketplaceborderlyservice.exception.CustomException;
+import com.advendio.marketplaceborderlyservice.model.response.CustomErrorResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class ResponseMessage {
     }
 
     public static ResponseEntity<Object> responseError() {
-        CustomErrorResponse customErrorResponse = new CustomErrorResponse(CustomErrorMessage.ERROR_500_NAME);
+        CustomErrorResponse customErrorResponse = new CustomErrorResponse(ErrorCode.ERROR_500_NAME.getMessage());
         return new ResponseEntity<>(customErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
