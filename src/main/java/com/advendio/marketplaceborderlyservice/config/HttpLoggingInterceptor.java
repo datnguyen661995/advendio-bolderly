@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 @Slf4j
-public class BolderlyHttpInterceptor  implements HandlerInterceptor {
+public class HttpLoggingInterceptor implements HandlerInterceptor {
     private static final String REQUEST_URL = "Request URL: ";
     private static final String START_TIME = "startTime";
 

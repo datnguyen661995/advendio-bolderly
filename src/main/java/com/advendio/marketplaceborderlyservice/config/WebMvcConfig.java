@@ -6,14 +6,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    private final BolderlyHttpInterceptor bolderlyHttpInterceptor;
+    private final HttpLoggingInterceptor httpLoggingInterceptor;
 
-    public WebMvcConfig(BolderlyHttpInterceptor bolderlyHttpInterceptor) {
-        this.bolderlyHttpInterceptor = bolderlyHttpInterceptor;
+    public WebMvcConfig(HttpLoggingInterceptor httpLoggingInterceptor) {
+        this.httpLoggingInterceptor = httpLoggingInterceptor;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(bolderlyHttpInterceptor);
+        registry.addInterceptor(httpLoggingInterceptor);
     }
 }
