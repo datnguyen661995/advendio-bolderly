@@ -12,4 +12,5 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @ConfigurationProperties(prefix = "app.bolderly")
 public class BolderlyProperties {
     private List<AntPathRequestMatcher> ignoringMatchers;
+    private String privateKey;
 }

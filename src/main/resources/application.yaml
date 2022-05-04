@@ -18,9 +18,7 @@ app:
         readTimeout: ${JWT_READ_TIME_OUT:2000}
         httpHeader: ${JWT_HTTP_HEADER:Authorization}
         tokenuse: ${JWT_TOKEN_USE:access}
-    key:
-      publicKey: publicKey.txt
-      privateKey: privateKey.txt
+    privateKey: privateKey.txt
 spring:
   main:
     allow-bean-definition-overriding: true
