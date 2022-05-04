@@ -1,9 +1,13 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.authenticate;
 
 import com.advendio.marketplaceborderlyservice.exception.CognitoException;
 import com.advendio.marketplaceborderlyservice.properties.BolderlyProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,10 +18,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 @Component
 @AllArgsConstructor
 @Slf4j
@@ -27,7 +27,8 @@ public class AwsCognitoJwtAuthFilter extends OncePerRequestFilter {
     private final HandlerExceptionResolver resolver;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
+    protected void doFilterInternal(
+            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         Authentication authentication;
         try {
             authentication = this.awsCognitoIdTokenProcessor.authenticate(request);
@@ -38,7 +39,11 @@ public class AwsCognitoJwtAuthFilter extends OncePerRequestFilter {
             }
         } catch (Exception e) {
             log.error("[Bolderly] Cognito Id Token processing error, {}", e.getMessage());
-            resolver.resolveException(request, response, null, new CognitoException(HttpStatus.UNAUTHORIZED, e.getMessage()));
+            resolver.resolveException(
+                    request,
+                    response,
+                    null,
+                    new CognitoException(HttpStatus.UNAUTHORIZED, e.getMessage()));
         }
     }
 

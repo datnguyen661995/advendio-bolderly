@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.config;
 
 import org.modelmapper.ModelMapper;
@@ -16,5 +17,4 @@ public class ModelMapperConfig {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return modelMapper;
     }
-
 }

@@ -1,4 +1,7 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.client.config;
+
+import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
 import feign.codec.Encoder;
 import feign.form.FormEncoder;
@@ -9,8 +12,6 @@ import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
-
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
 @AllArgsConstructor
 public class FormUrlConfig {

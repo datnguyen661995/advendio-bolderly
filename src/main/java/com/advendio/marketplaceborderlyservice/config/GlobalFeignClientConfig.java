@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.config;
 
 import com.advendio.marketplaceborderlyservice.client.handler.CustomErrorDecoder;

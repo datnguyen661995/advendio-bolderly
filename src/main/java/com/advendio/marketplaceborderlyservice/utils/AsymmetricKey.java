@@ -1,16 +1,16 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.utils;
 
 import com.advendio.marketplaceborderlyservice.model.response.EncryptedData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
+import java.security.*;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 @Component
 public class AsymmetricKey {
@@ -64,7 +64,8 @@ public class AsymmetricKey {
         return cipher.doFinal(data.getBytes());
     }
 
-    public byte[] encryptKey(PublicKey publicKey, SecretKey secretKey) throws GeneralSecurityException {
+    public byte[] encryptKey(PublicKey publicKey, SecretKey secretKey)
+            throws GeneralSecurityException {
         log.info("****** ENCRYPT KEY ********");
         Cipher cipher = Cipher.getInstance(RSA_ECB_PKCS1PADDING);
         cipher.init(Cipher.PUBLIC_KEY, publicKey);
@@ -73,7 +74,8 @@ public class AsymmetricKey {
         return result;
     }
 
-    public byte[] decryptData(EncryptedData encryptedData, PrivateKey privateKey) throws GeneralSecurityException {
+    public byte[] decryptData(EncryptedData encryptedData, PrivateKey privateKey)
+            throws GeneralSecurityException {
         log.info("****** DECRYPT DATA ********");
 
         Cipher cipher = Cipher.getInstance(RSA_ECB_PKCS1PADDING);

@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.exception;
 
 import lombok.Getter;
@@ -8,9 +9,11 @@ import org.springframework.http.HttpStatus;
 @Setter
 public class CognitoException extends RuntimeException {
     public static final String NO_TOKEN_FOUND = "NO_TOKEN_FOUND";
-    public static final String NO_TOKEN_PROVIDED_EXCEPTION = "No token found in Http Authorization Header";
+    public static final String NO_TOKEN_PROVIDED_EXCEPTION =
+            "No token found in Http Authorization Header";
     public static final String INVALID_TOKEN = "Invalid Token";
-    public static final String INVALID_TOKEN_EXCEPTION_CODE = "Issuer %s in JWT token doesn't match cognito idp %s";
+    public static final String INVALID_TOKEN_EXCEPTION_CODE =
+            "Issuer %s in JWT token doesn't match cognito idp %s";
     public static final String NOT_A_TOKEN_EXCEPTION = "JWT Token doesn't seem to be an ID Token";
     public static final String NOT_CLIENT_ID_EXCEPTION = "JWT Token doesn't seem to be client-id";
     public static final String NOT_TOKEN_USE_EXCEPTION = "JWT Token doesn't seem to be token-use";

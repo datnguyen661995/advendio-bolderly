@@ -1,8 +1,8 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.model.request;
 
-import lombok.Data;
-
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class CreateClientRequest {

@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.config;
 
 import org.springframework.beans.factory.annotation.Value;

@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -5,9 +6,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 public class ServletInitializer extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(MarketplaceBorderlyServiceApplication.class);
-	}
-
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(MarketplaceBorderlyServiceApplication.class);
+    }
 }

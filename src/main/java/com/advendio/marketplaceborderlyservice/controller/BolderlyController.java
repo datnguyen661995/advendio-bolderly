@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.controller;
 
 import com.advendio.marketplaceborderlyservice.model.dto.TokenDto;
@@ -9,15 +10,14 @@ import com.advendio.marketplaceborderlyservice.service.CognitoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 @RestController
 @Api(tags = "Bolderly")
@@ -33,7 +33,12 @@ public class BolderlyController {
 
     @GetMapping
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "Authorization", value = "Authorization", example = "Bearer <access_token>", paramType = "header", required = true)
+        @ApiImplicitParam(
+                name = "Authorization",
+                value = "Authorization",
+                example = "Bearer <access_token>",
+                paramType = "header",
+                required = true)
     })
     public ResponseEntity<?> getData() {
         return ResponseEntity.ok("GET DATA");
@@ -41,14 +46,19 @@ public class BolderlyController {
 
     @PostMapping
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "Authorization", value = "Authorization", example = "Bearer <access_token>", paramType = "header", required = true)
+        @ApiImplicitParam(
+                name = "Authorization",
+                value = "Authorization",
+                example = "Bearer <access_token>",
+                paramType = "header",
+                required = true)
     })
     public ResponseEntity<?> createData() {
         return ResponseEntity.ok("CREATE DATA");
     }
 
     @PostMapping(value = "/oauth/token")
-    public ResponseEntity<TokenDto> getToken(@RequestBody EncryptedData encryptedData){
+    public ResponseEntity<TokenDto> getToken(@RequestBody EncryptedData encryptedData) {
         ClientRequest clientRequest = bolderService.decryptClientRequest(encryptedData);
         return ResponseEntity.ok(bolderService.getToken(clientRequest));
     }
@@ -59,12 +69,12 @@ public class BolderlyController {
     }
 
     @PostMapping(value = "/encryptData")
-    public ResponseEntity<EncryptedData> encryptData(@RequestBody Object request){
+    public ResponseEntity<EncryptedData> encryptData(@RequestBody Object request) {
         return ResponseEntity.ok(bolderService.encryptData(request));
     }
 
     @PostMapping(value = "/client")
-    public ResponseEntity<TokenDto> createClient(@RequestBody EncryptedData encryptedData){
+    public ResponseEntity<TokenDto> createClient(@RequestBody EncryptedData encryptedData) {
         CreateClientRequest createClientRequest = bolderService.decryptCreateData(encryptedData);
         return ResponseEntity.ok(cognitoService.createPoolClientAndGetToken(createClientRequest));
     }

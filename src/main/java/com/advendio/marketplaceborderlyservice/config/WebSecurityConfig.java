@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.config;
 
 import com.advendio.marketplaceborderlyservice.authenticate.AwsCognitoJwtAuthFilter;
@@ -11,14 +12,23 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String[] WHITE_LIST = {"/actuator/**", "/", "/v2/api-docs/**", "/bolderly/oauth/token"};
+    private static final String[] WHITE_LIST = {
+        "/actuator/**", "/", "/v2/api-docs/**", "/bolderly/oauth/token"
+    };
     private final AwsCognitoJwtAuthFilter awsCognitoJwtAuthFilter;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
+        httpSecurity
+                .csrf()
+                .disable()
                 .cors()
-                .and().authorizeRequests().antMatchers(WHITE_LIST).permitAll()
-                .and().headers().contentSecurityPolicy("script-src 'self'");
+                .and()
+                .authorizeRequests()
+                .antMatchers(WHITE_LIST)
+                .permitAll()
+                .and()
+                .headers()
+                .contentSecurityPolicy("script-src 'self'");
     }
 }

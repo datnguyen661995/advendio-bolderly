@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,8 +16,10 @@ import lombok.experimental.Accessors;
 public class TokenDto {
     @JsonProperty("access_token")
     private String accessToken;
+
     @JsonProperty("expires_in")
     private long expiresIn;
+
     @JsonProperty("token_type")
     private String tokenType;
 }
