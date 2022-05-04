@@ -1,3 +1,4 @@
+/* (C)2022 */
 package com.advendio.marketplaceborderlyservice.service.impl;
 
 import com.advendio.marketplaceborderlyservice.client.AuthClient;
@@ -11,16 +12,15 @@ import com.advendio.marketplaceborderlyservice.utils.AsymmetricKey;
 import com.advendio.marketplaceborderlyservice.utils.GenerateKeys;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BolderServiceImpl implements BolderService {
@@ -81,7 +81,8 @@ public class BolderServiceImpl implements BolderService {
     public CreateClientRequest decryptCreateData(EncryptedData encryptedData) {
         PrivateKey privateKey = ac.getPrivate();
         try {
-            return mapper.readValue(ac.decryptData(encryptedData, privateKey), CreateClientRequest.class);
+            return mapper.readValue(
+                    ac.decryptData(encryptedData, privateKey), CreateClientRequest.class);
         } catch (IOException | GeneralSecurityException e) {
             throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

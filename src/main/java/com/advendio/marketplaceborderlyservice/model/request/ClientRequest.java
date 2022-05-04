@@ -1,12 +1,10 @@
 /* (C)2022 */
 package com.advendio.marketplaceborderlyservice.model.request;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.OAuthFlowType;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor

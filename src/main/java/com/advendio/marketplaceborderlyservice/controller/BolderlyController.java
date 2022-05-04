@@ -58,7 +58,7 @@ public class BolderlyController {
     }
 
     @PostMapping(value = "/oauth/token")
-    public ResponseEntity<TokenDto> getToken(@RequestBody EncryptedData encryptedData){
+    public ResponseEntity<TokenDto> getToken(@RequestBody EncryptedData encryptedData) {
         ClientRequest clientRequest = bolderService.decryptClientRequest(encryptedData);
         return ResponseEntity.ok(bolderService.getToken(clientRequest));
     }
@@ -69,12 +69,12 @@ public class BolderlyController {
     }
 
     @PostMapping(value = "/encryptData")
-    public ResponseEntity<EncryptedData> encryptData(@RequestBody Object request){
+    public ResponseEntity<EncryptedData> encryptData(@RequestBody Object request) {
         return ResponseEntity.ok(bolderService.encryptData(request));
     }
 
     @PostMapping(value = "/client")
-    public ResponseEntity<TokenDto> createClient(@RequestBody EncryptedData encryptedData){
+    public ResponseEntity<TokenDto> createClient(@RequestBody EncryptedData encryptedData) {
         CreateClientRequest createClientRequest = bolderService.decryptCreateData(encryptedData);
         return ResponseEntity.ok(cognitoService.createPoolClientAndGetToken(createClientRequest));
     }
