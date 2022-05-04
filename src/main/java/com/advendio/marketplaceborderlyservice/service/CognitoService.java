@@ -11,5 +11,7 @@ public interface CognitoService {
 
     ListUserPoolClientsResponse listAllUserPoolClients();
 
+    TokenDto getToken(String clientId);
+
     TokenDto getToken(ClientRequest clientRequest);
 }
