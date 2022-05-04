@@ -3,12 +3,12 @@ package com.advendio.marketplaceborderlyservice.service.impl;
 
 import static com.advendio.marketplaceborderlyservice.constants.CommonConstants.COGNITO_GRANT_TYPE_CLIENT_CREDENTIALS;
 
+import com.advendio.marketplaceborderlyservice.client.AuthClient;
 import com.advendio.marketplaceborderlyservice.exception.CognitoException;
 import com.advendio.marketplaceborderlyservice.model.dto.TokenDto;
 import com.advendio.marketplaceborderlyservice.model.request.ClientRequest;
 import com.advendio.marketplaceborderlyservice.model.request.CreateClientRequest;
 import com.advendio.marketplaceborderlyservice.properties.JwtProperties;
-import com.advendio.marketplaceborderlyservice.service.BolderService;
 import com.advendio.marketplaceborderlyservice.service.CognitoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +26,11 @@ public class CognitoServiceImpl implements CognitoService {
 
     private CognitoIdentityProviderClient cognitoIdentityProviderClient;
 
-    private final BolderService bolderService;
+    private final AuthClient authClient;
 
-    public CognitoServiceImpl(JwtProperties jwtProperties, BolderService bolderService) {
+    public CognitoServiceImpl(JwtProperties jwtProperties, AuthClient authClient) {
         this.jwtProperties = jwtProperties;
-        this.bolderService = bolderService;
+        this.authClient = authClient;
     }
 
     private CognitoIdentityProviderClient getCognitoClient() {
@@ -65,7 +65,7 @@ public class CognitoServiceImpl implements CognitoService {
                             response.userPoolClient().clientSecret(),
                             response.userPoolClient().allowedOAuthScopes());
             log.info("Created new client: {}", createClientRequest.getClientName());
-            return bolderService.getToken(clientRequest);
+            return this.getToken(clientRequest);
         } catch (CognitoIdentityProviderException e) {
             throw new CognitoException(
                     e.awsErrorDetails().errorCode(), e.awsErrorDetails().errorMessage());
@@ -85,5 +85,29 @@ public class CognitoServiceImpl implements CognitoService {
             throw new CognitoException(
                     e.awsErrorDetails().errorCode(), e.awsErrorDetails().errorMessage());
         }
+    }
+
+    private UserPoolClientType describleClient(String clientId) {
+        try {
+            DescribeUserPoolClientResponse response =
+                    getCognitoClient()
+                            .describeUserPoolClient(
+                                    DescribeUserPoolClientRequest.builder()
+                                            .clientId(clientId)
+                                            .userPoolId(jwtProperties.getUserPoolId())
+                                            .build());
+            return response.userPoolClient();
+        } catch (CognitoIdentityProviderException e) {
+            throw new CognitoException(
+                    e.awsErrorDetails().errorCode(), e.awsErrorDetails().errorMessage());
+        }
+    }
+
+    @Override
+    public TokenDto getToken(ClientRequest clientRequest) {
+        UserPoolClientType userPoolClient = this.describleClient(clientRequest.getClient_id());
+
+        clientRequest.setClient_secret(userPoolClient.clientSecret());
+        return authClient.getToken(clientRequest);
     }
 }
