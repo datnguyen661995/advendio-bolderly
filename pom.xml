@@ -35,6 +35,7 @@
         <aws-java-sdk-cognitoidp.version>1.11.360</aws-java-sdk-cognitoidp.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
         <feign-form.version>3.8.0</feign-form.version>
+        <aws.version>2.17.176</aws.version>
     </properties>
 
     <dependencies>
@@ -69,6 +70,28 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>bom</artifactId>
+            <version>${aws.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>cognitoidentity</artifactId>
+            <version>${aws.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>cognitoidentityprovider</artifactId>
+            <version>${aws.version}</version>
         </dependency>
 
         <dependency>
