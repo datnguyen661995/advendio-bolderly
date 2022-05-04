@@ -40,6 +40,7 @@
         <mockito.version>3.12.4</mockito.version>
         <junit.jupiter.version>5.7.1</junit.jupiter.version>
         <apache.common.version>3.12.0</apache.common.version>
+        <aws.version>2.17.176</aws.version>
     </properties>
 
     <dependencies>
@@ -77,6 +78,29 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>bom</artifactId>
+            <version>${aws.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>cognitoidentity</artifactId>
+            <version>${aws.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>cognitoidentityprovider</artifactId>
+            <version>${aws.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
             <version>${swagger.version}</version>
@@ -105,25 +129,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
-        <!--		<dependency>-->
-        <!--			<groupId>com.amazonaws</groupId>-->
-        <!--			<artifactId>aws-java-sdk</artifactId>-->
-        <!--			<version>${aws-java-sdk.version}</version>-->
-        <!--		</dependency>-->
-        <!--		&lt;!&ndash; https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-cognitoidp &ndash;&gt;-->
-        <!--		<dependency>-->
-        <!--			<groupId>com.amazonaws</groupId>-->
-        <!--			<artifactId>aws-java-sdk-cognitoidp</artifactId>-->
-        <!--			<version>${aws-java-sdk-cognitoidp.version}</version>-->
-        <!--		</dependency>-->
-        <!--		&lt;!&ndash; https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-core &ndash;&gt;-->
-        <!--		<dependency>-->
-        <!--			<groupId>com.amazonaws</groupId>-->
-        <!--			<artifactId>aws-java-sdk-core</artifactId>-->
-        <!--			<version>${aws-java-sdk-core.version}</version>-->
-        <!--		</dependency>-->
-        <!--         https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-feign -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-feign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
