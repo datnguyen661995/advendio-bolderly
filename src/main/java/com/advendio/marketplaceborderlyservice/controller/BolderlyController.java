@@ -60,7 +60,7 @@ public class BolderlyController {
     @PostMapping(value = "/oauth/token")
     public ResponseEntity<TokenDto> getToken(@RequestBody EncryptedData encryptedData) {
         ClientRequest clientRequest = bolderService.decryptClientRequest(encryptedData);
-        return ResponseEntity.ok(bolderService.getToken(clientRequest));
+        return ResponseEntity.ok(cognitoService.getToken(clientRequest));
     }
 
     @GetMapping(value = "/genKey")
