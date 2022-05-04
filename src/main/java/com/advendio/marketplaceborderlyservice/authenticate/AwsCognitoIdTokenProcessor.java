@@ -2,6 +2,7 @@ package com.advendio.marketplaceborderlyservice.authenticate;
 
 import com.advendio.marketplaceborderlyservice.exception.CognitoException;
 import com.advendio.marketplaceborderlyservice.properties.JwtProperties;
+import com.advendio.marketplaceborderlyservice.service.CognitoService;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.proc.BadJOSEException;
 import com.nimbusds.jwt.JWTClaimsSet;
@@ -26,6 +27,8 @@ public class AwsCognitoIdTokenProcessor {
     private final JwtProperties jwtProperties;
     private final ConfigurableJWTProcessor configurableJWTProcessor;
 
+    private final CognitoService cognitoService;
+
     public Authentication authenticate(HttpServletRequest request) throws BadJOSEException, ParseException, JOSEException {
         String idToken = request.getHeader(this.jwtProperties.getHttpHeader());
         if (null == idToken) {
@@ -47,8 +50,8 @@ public class AwsCognitoIdTokenProcessor {
             throw new CognitoException(HttpStatus.UNAUTHORIZED,
                     CognitoException.NOT_TOKEN_USE_EXCEPTION);
         }
-        // TODO: Check client ID in pool later
-        if (!jwtProperties.getClientId().contains(claims.getClaim(CLIENT_ID))) {
+        // Check client ID
+        if (cognitoService.listAllUserPoolClients().userPoolClients().stream().noneMatch(client -> client.clientId().equals(claims.getClaim(CLIENT_ID)))) {
             throw new CognitoException(HttpStatus.UNAUTHORIZED,
                     CognitoException.NOT_CLIENT_ID_EXCEPTION);
         }
