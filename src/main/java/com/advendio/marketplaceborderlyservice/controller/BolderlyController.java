@@ -2,7 +2,6 @@
 package com.advendio.marketplaceborderlyservice.controller;
 
 import com.advendio.marketplaceborderlyservice.model.dto.TokenDto;
-import com.advendio.marketplaceborderlyservice.model.request.ClientRequest;
 import com.advendio.marketplaceborderlyservice.model.request.CreateClientRequest;
 import com.advendio.marketplaceborderlyservice.model.response.EncryptedData;
 import com.advendio.marketplaceborderlyservice.service.BolderService;
@@ -10,14 +9,12 @@ import com.advendio.marketplaceborderlyservice.service.CognitoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 @RestController
 @Api(tags = "Bolderly")
@@ -57,10 +54,9 @@ public class BolderlyController {
         return ResponseEntity.ok("CREATE DATA");
     }
 
-    @PostMapping(value = "/oauth/token")
-    public ResponseEntity<TokenDto> getToken(@RequestBody EncryptedData encryptedData) {
-        ClientRequest clientRequest = bolderService.decryptClientRequest(encryptedData);
-        return ResponseEntity.ok(cognitoService.getToken(clientRequest));
+    @GetMapping(value = "/token")
+    public ResponseEntity<TokenDto> getToken(@RequestParam String clientId) {
+        return ResponseEntity.ok(cognitoService.getToken(clientId));
     }
 
     @GetMapping(value = "/genKey")

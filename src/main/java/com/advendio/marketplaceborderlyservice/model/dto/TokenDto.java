@@ -14,6 +14,9 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Accessors(chain = true)
 public class TokenDto {
+    @JsonProperty("client_id")
+    private String clientId;
+
     @JsonProperty("access_token")
     private String accessToken;
 

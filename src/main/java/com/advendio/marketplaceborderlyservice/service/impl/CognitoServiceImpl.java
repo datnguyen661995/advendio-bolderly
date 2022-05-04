@@ -59,11 +59,12 @@ public class CognitoServiceImpl implements CognitoService {
                                             .build());
 
             ClientRequest clientRequest =
-                    new ClientRequest(
-                            COGNITO_GRANT_TYPE_CLIENT_CREDENTIALS,
-                            response.userPoolClient().clientId(),
-                            response.userPoolClient().clientSecret(),
-                            response.userPoolClient().allowedOAuthScopes());
+                    ClientRequest.builder()
+                            .grant_type(COGNITO_GRANT_TYPE_CLIENT_CREDENTIALS)
+                            .client_id(response.userPoolClient().clientId())
+                            .client_secret(response.userPoolClient().clientSecret())
+                            .scope(response.userPoolClient().allowedOAuthScopes())
+                            .build();
             log.info("Created new client: {}", createClientRequest.getClientName());
             return this.getToken(clientRequest);
         } catch (CognitoIdentityProviderException e) {
@@ -104,10 +105,21 @@ public class CognitoServiceImpl implements CognitoService {
     }
 
     @Override
-    public TokenDto getToken(ClientRequest clientRequest) {
-        UserPoolClientType userPoolClient = this.describleClient(clientRequest.getClient_id());
+    public TokenDto getToken(String clientId) {
+        UserPoolClientType userPoolClient = this.describleClient(clientId);
+        return authClient.getToken(
+                ClientRequest.builder()
+                        .client_id(userPoolClient.clientId())
+                        .client_secret(userPoolClient.clientSecret())
+                        .grant_type(COGNITO_GRANT_TYPE_CLIENT_CREDENTIALS)
+                        .scope(userPoolClient.allowedOAuthScopes())
+                        .build());
+    }
 
-        clientRequest.setClient_secret(userPoolClient.clientSecret());
-        return authClient.getToken(clientRequest);
+    @Override
+    public TokenDto getToken(ClientRequest clientRequest) {
+        TokenDto result = authClient.getToken(clientRequest);
+        result.setClientId(clientRequest.getClient_id());
+        return result;
     }
 }
