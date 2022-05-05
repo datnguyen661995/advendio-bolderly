@@ -1,8 +1,6 @@
 /* (C)2022 */
 package com.advendio.marketplaceborderlyservice.service.impl;
 
-import static com.advendio.marketplaceborderlyservice.constants.CommonConstants.COGNITO_GRANT_TYPE_CLIENT_CREDENTIALS;
-
 import com.advendio.marketplaceborderlyservice.client.AuthClient;
 import com.advendio.marketplaceborderlyservice.exception.CognitoException;
 import com.advendio.marketplaceborderlyservice.model.dto.TokenDto;
@@ -12,10 +10,14 @@ import com.advendio.marketplaceborderlyservice.properties.JwtProperties;
 import com.advendio.marketplaceborderlyservice.service.CognitoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.*;
+
+import static com.advendio.marketplaceborderlyservice.constants.CommonConstants.COGNITO_GRANT_TYPE_CLIENT_CREDENTIALS;
+import static com.advendio.marketplaceborderlyservice.enums.ErrorCode.COGNITO_ERROR_CLIENT_ID_IS_NOT_SUITABLE;
 
 @Service
 public class CognitoServiceImpl implements CognitoService {
@@ -107,6 +109,11 @@ public class CognitoServiceImpl implements CognitoService {
     @Override
     public TokenDto getToken(String clientId) {
         UserPoolClientType userPoolClient = this.describleClient(clientId);
+        if (userPoolClient.allowedOAuthScopes().isEmpty()
+                || !userPoolClient.hasAllowedOAuthFlows()) {
+            throw new CognitoException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, COGNITO_ERROR_CLIENT_ID_IS_NOT_SUITABLE.getMessage());
+        }
         return authClient.getToken(
                 ClientRequest.builder()
                         .client_id(userPoolClient.clientId())
