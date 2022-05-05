@@ -1,9 +1,7 @@
 /* (C)2022 */
 package com.advendio.marketplaceborderlyservice.service.impl;
 
-import com.advendio.marketplaceborderlyservice.client.AuthClient;
 import com.advendio.marketplaceborderlyservice.exception.CustomException;
-import com.advendio.marketplaceborderlyservice.model.dto.TokenDto;
 import com.advendio.marketplaceborderlyservice.model.request.ClientRequest;
 import com.advendio.marketplaceborderlyservice.model.request.CreateClientRequest;
 import com.advendio.marketplaceborderlyservice.model.response.EncryptedData;
@@ -24,7 +22,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BolderServiceImpl implements BolderService {
-    private final AuthClient authClient;
 
     private final ObjectMapper mapper;
 
@@ -32,8 +29,7 @@ public class BolderServiceImpl implements BolderService {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    public BolderServiceImpl(AuthClient authClient, ObjectMapper mapper, AsymmetricKey ac) {
-        this.authClient = authClient;
+    public BolderServiceImpl(ObjectMapper mapper, AsymmetricKey ac) {
         this.mapper = mapper;
         this.ac = ac;
     }
@@ -46,11 +42,6 @@ public class BolderServiceImpl implements BolderService {
         } catch (IOException | GeneralSecurityException e) {
             throw new CustomException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-    }
-
-    @Override
-    public TokenDto getToken(ClientRequest clientRequest) {
-        return authClient.getToken(clientRequest);
     }
 
     @Override

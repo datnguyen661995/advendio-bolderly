@@ -3,11 +3,13 @@ package com.advendio.marketplaceborderlyservice.model.request;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
 @AllArgsConstructor
+@Builder
 @Accessors(chain = true)
 public class ClientRequest {
     private String grant_type;

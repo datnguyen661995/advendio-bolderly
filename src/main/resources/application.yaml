@@ -6,7 +6,7 @@ app:
   swagger:
     host-name:
   bolderly:
-    ignoringMatchers: /swagger-ui/**, /swagger-resources/**, /actuator/health, /v2/api-docs/**, /oauth/token, /genKey, /encryptAndDecryptText/**, /encryptData, /client
+    ignoringMatchers: /swagger-ui/**, /swagger-resources/**, /actuator/health, /v2/api-docs/**, /token, /genKey, /encryptAndDecryptText/**, /encryptData, /client
     jwt:
       aws:
         userPoolId: ${JWT_USER_POOL_ID:us-east-1_uIGGYZMeB}
