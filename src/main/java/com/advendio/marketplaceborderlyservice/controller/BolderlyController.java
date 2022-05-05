@@ -9,12 +9,11 @@ import com.advendio.marketplaceborderlyservice.service.CognitoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 @RestController
 @Api(tags = "Bolderly")

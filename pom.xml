@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.advendio</groupId>
-    <artifactId>marketplace-borderly-service</artifactId>
+    <artifactId>marketplace-open-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>marketplace-borderly-service</name>
+    <name>marketplace-open-service</name>
     <description>ADvendio Marketplace API</description>
     <properties>
         <java.version>1.8</java.version>

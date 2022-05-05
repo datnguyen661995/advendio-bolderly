@@ -12,8 +12,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @ConfigurationPropertiesScan
 @EnableFeignClients
 // @EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
-public class MarketplaceBorderlyServiceApplication {
+public class MarketplaceOpenServiceApplication {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(MarketplaceBorderlyServiceApplication.class, args);
+        SpringApplication.run(MarketplaceOpenServiceApplication.class, args);
     }
 }

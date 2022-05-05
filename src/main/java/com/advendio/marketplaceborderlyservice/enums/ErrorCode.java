@@ -12,7 +12,8 @@ public enum ErrorCode {
     ERROR_WHILE_REQUEST_TO_ERROR(
             "Error while request to {} - error {}", "Error while request to {} - error {}"),
 
-    COGNITO_ERROR_CLIENT_ID_IS_NOT_SUITABLE ("This client is prevented to get token", "This client is prevented to get token");
+    COGNITO_ERROR_CLIENT_ID_IS_NOT_SUITABLE(
+            "This client is prevented to get token", "This client is prevented to get token");
     private final String code;
     private final String message;
 
