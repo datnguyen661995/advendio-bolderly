@@ -1,12 +1,7 @@
-server:
-  port: 8080
-  servlet:
-    context-path: "/bolderly"
 app:
   swagger:
     host-name:
-  bolderly:
-    ignoringMatchers: /swagger-ui/**, /swagger-resources/**, /actuator/health, /v2/api-docs/**, /token, /genKey, /encryptAndDecryptText/**, /encryptData, /client
+  service:
     jwt:
       aws:
         userPoolId: ${JWT_USER_POOL_ID:ap-southeast-1_87DpLVK6G}
